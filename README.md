@@ -1,102 +1,105 @@
-# 4-BIT-RIPPLE-COUNTER
+# FULL ADDER AND SUBTRACTOR
+## NAME: Rajeshwaran.D
+## REG NO: 212223040165
+## EXP NO:3 FULL ADDER AND SUBTRACTOR
 
-**AIM:**
+Implementation-of-Full-Adder-and-Full-subtractor-circuit
 
-To implement  4 Bit Ripple Counter using verilog and validating their functionality using their functional tables
+## AIM:
 
-**SOFTWARE REQUIRED:**
+To design a Full Adder and Full Subtractor circuit and verify its truth table in Quartus using Verilog programming.
 
-Quartus prime
+## EQUIPMENTS REQUIRED:
 
-**THEORY**
+Hardware – PCs, Cyclone II , USB flasher
 
-**4 Bit Ripple Counter**
+Software – Quartus prime
 
-A binary ripple counter consists of a series connection of complementing flip-flops (T or JK type), with the output of each flip-flop connected to the Clock Pulse input of the next higher-order flip-flop. The flip-flop holding the least significant bit receives the incoming count pulses. The diagram of a 4-bit binary ripple counter is shown in Fig. below.
+## Full Adder and Full Subtractor
 
-![image](https://github.com/naavaneetha/4-BIT-RIPPLE-COUNTER/assets/154305477/cb4b74d4-31ab-4359-95d0-d22e67daba13)
+## FULL ADDER:
+Full adder is a digital circuit used to calculate the sum of three binary bits. It consists of three inputs and two outputs. Two of the input variables, denoted by A and B, represent the two significant bits to be added. The third input, Cin, represents the carry from the previous lower significant position. Two outputs are necessary because the arithmetic sum of three binary digits ranges in value from 0 to 3, and binary 2 or 3 needs two digits. The two outputs are sum and carry.
 
-In timing diagram Q0 is changing as soon as the negative edge of clock pulse is encountered, Q1 is changing when negative edge of Q0 is encountered(because Q0 is like clock pulse for second flip flop) and so on.
+Sum =A’B’Cin + A’BCin’ + ABCin + AB’Cin’ = A ⊕ B ⊕ Cin 
 
-![image](https://github.com/naavaneetha/4-BIT-RIPPLE-COUNTER/assets/154305477/a573a7d6-014e-4e54-93e6-e2ac9530960b)
+Carry = AB + ACin + BCin
 
-![image](https://github.com/naavaneetha/4-BIT-RIPPLE-COUNTER/assets/154305477/85e1958a-2fc1-49bb-9a9f-d58ccbf3663c)
+![image](https://github.com/naavaneetha/FULL_ADDER_SUBTRACTOR/assets/154305477/0f30ba51-5ffb-4198-845f-18e054f675e7)
 
-**Procedure**
-1.Increment count on each positive edge of the clock.
-2.Reset count to zero when it reaches 15.
-3.Generate clock signal (clk).
-4.Instantiate the RippleCounter module.
-5.Conduct functional testing by displaying the count at each clock cycle for 16 cycles.
-**PROGRAM**
-```
-module RippleCounter(
-   input wire clk,  // Clock input
-   output reg [3:0] count // 4-bit counter output
-);
+**Figure -1 FULL ADDER**
 
-// Counter logic
-always @(posedge clk) begin
-   if (count == 4'b1111) // Reset when count reaches 15
-       count <= 4'b0000;
-   else
-       count <= count + 1; // Increment count
-end
+## FULL SUBTRACTOR:
 
+A full subtractor is a combinational circuit that performs subtraction involving three bits, namely minuend, subtrahend, and borrow-in . It accepts three inputs: minuend, subtrahend and a borrow bit and it produces two outputs: difference and borrow.
+
+![image](https://github.com/naavaneetha/FULL_ADDER_SUBTRACTOR/assets/154305477/02b24f51-ab51-4304-9ad6-7b81ffc1ead5)
+
+Diff = A ⊕ B ⊕ Bin 
+
+Borrow out = A'Bin + A'B + BBin
+
+## Truthtable:
+FULL ADDER:
+
+
+![full-adder2](https://github.com/user-attachments/assets/b89c130b-0d10-4c30-8194-d7cd8f5adda7)
+
+FULL SUBTRACTOR:
+
+![full-subtractor2](https://github.com/user-attachments/assets/31efd26a-5553-4798-a5fc-7f6e520987e4)
+
+## PROCEDURE:
+
+Write the detailed procedure here
+
+## PROGRAM:
+
+
+FULL ADDER:
+~~~
+module fulladder (a,b,cin,sum,carry);
+input a,b,cin;
+output sum,carry;
+assign sum = ((a^b)^cin);
+assign carry = ((a&b)|(cin&(a^b)));
 endmodule
+~~~
 
-// Testbench
-module RippleCounter_tb;
-
-// Inputs
-reg clk;
-
-// Outputs
-wire [3:0] count;
-
-// Instantiate the counter
-RippleCounter uut(
-   .clk(clk),
-   .count(count)
-);
-
-// Clock generation
-initial begin
-   clk = 0;
-   forever #5 clk = ~clk; // Toggle clock every 5 time units
-end
-
-// Stimulus
-initial begin
-   // Wait for a few clock cycles
-   #10;
-   
-   // Display header
-   $display("Time | Count");
-   $display("-----------------");
-   
-   // Functional table testing
-   // Increment count 16 times and display the count
-   repeat (16) begin
-       #5; // Wait for one clock cycle
-       $display("%4d | %b", $time, count);
-   end
-   
-   // End simulation
-   $finish;
-end
-
+FULL SUBTRACTOR:
+~~~
+module fullsubtractor(a,b,bin,difference,borrow);
+input a,b,bin;
+output difference,borrow;
+assign difference=((a^b)^bin);
+assign borrow=((~a&b)|(bin&(~(a^b))));
 endmodule
-```
-Program for logic gates and verify its truth table in quartus using Verilog programming.
+~~~
+
+## RTL OUTPUT:
+
+FULL ADDER:
+
+![Screenshot 2024-11-19 085019](https://github.com/user-attachments/assets/1d4b0fbb-f9a6-4074-ac7c-565ea2557b8b)
+
+FULL SUBTRACTOR:
+
+![Screenshot 2024-11-19 091018](https://github.com/user-attachments/assets/952ff071-ff77-4afd-9cc7-faa0ec9482ad)
+
+
+## OUTPUT WAVEFORM:
+FULL ADDER:
+
+![Screenshot 2024-11-19 085835](https://github.com/user-attachments/assets/a2daf309-f3a4-44ef-9080-5fab58b55441)
+
+FULL SUBTRACTOR:
+
+![Screenshot 2024-11-19 091315](https://github.com/user-attachments/assets/a60e0f8c-d1a8-4535-b779-b3d1ac83ed31)
 
 
 
-**RTL LOGIC FOR 4 Bit Ripple Counter**
-![330489871-a0d3aa3d-b3b0-4ce0-89bb-bfa1a8abde7c](https://github.com/RamkumarGunasekaran/4-BIT-RIPPLE-COUNTER/assets/144870820/9cbf71a5-4809-4437-a99f-24d928634e94)
+## RESULT:
 
-**TIMING DIGRAMS FOR 4 Bit Ripple Counter**
-![330489946-a285f70c-c317-4f6e-be38-eef9ecfa250d](https://github.com/RamkumarGunasekaran/4-BIT-RIPPLE-COUNTER/assets/144870820/3e402c9e-f477-44a3-9f01-cd17df84ba77)
+Thus the Full Adder and Full Subtractor circuits are designed and the truth tables is verified using Quartus software.
 
-**RESULTS**
-Thus the program executed succesfully.
+
+
